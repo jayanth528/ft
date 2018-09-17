@@ -1,0 +1,9 @@
+<mat-toolbar color="primary">
+	<mat-toolbar-row>
+		<button mat-icon-button (click)="dataService.isSidenavOpen = !dataService.isSidenavOpen">
+			<mat-icon aria-label="Example icon-button with a heart icon">menu</mat-icon>
+		</button>
+		<span>{{toolbarLabel}}</span>
+		<span class="example-spacer"></span>
+	</mat-toolbar-row>
+</mat-toolbar>

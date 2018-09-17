@@ -1,0 +1,72 @@
+
+<div style="margin:2%;">
+	
+	
+	<div style="width:90%;display: flex;flex-direction: column;">
+		
+        <div *ngIf="!isMileageView">
+			<form class="example-form" style="margin-top:5%">
+			  <mat-form-field class="example-full-width">
+			    <input matInput placeholder="Enter Fuel" type="number" [(ngModel)]="fuelValue" name="fuelInput" min="0">
+			  </mat-form-field>
+			</form>
+
+			<mat-radio-group [(ngModel)]="selectedPeriod" *ngIf="fuelValue!=0" style="display: flex;flex-direction: column;margin:15% 0">
+			  <mat-radio-button value="today">Today</mat-radio-button>
+			  <mat-radio-button value="notToday" style="margin-top:3%">Not Today</mat-radio-button>
+			</mat-radio-group>
+
+			<div *ngIf="selectedPeriod!='today' && fuelValue!=0">
+				<button mat-raised-button (click)="picker.open()" style="margin-top:5%">Click to Select a Date</button>
+
+				<mat-form-field style="margin-top:4%" >
+				  <input matInput [matDatepicker]="picker" placeholder="Selected Date is " (dateChange)="selectedDate = $event.value">
+				  <mat-datepicker #picker></mat-datepicker>
+				</mat-form-field>
+			</div> 
+
+			<button style="margin-top:1%;width:80%" [disabled]="fuelValue==0"  color="primary" mat-raised-button (click)="saveNewFuelEvent()">Save Fuel</button>
+
+        	
+        </div>
+
+		
+        <div *ngIf="isMileageView" style="margin-bottom:10%;display: flex;flex-direction: column;">
+        	<button mat-raised-button style="margin:5% 0;width:20%" (click)="isMileageView = !isMileageView;refreshFuelHistory()"> < Go Back</button>
+			<form class="example-form" style="margin-top:5%">
+			  <mat-form-field class="example-full-width">
+			    <input matInput placeholder="Enter Run KM " type="number" [(ngModel)]="mileageValue" name="mileageInput" min="0">
+			  </mat-form-field>
+			</form>
+			
+			<div>
+				<button style="margin-top:5%;width:80%" [disabled]="mileageValue==0"  color="primary" mat-raised-button (click)="setMileage()">Save Run KM </button>
+				<button mat-icon-button (click)="deleteSelectedFuelEvent()">
+			 	   <mat-icon aria-label="Example icon-button with a heart icon" color="warn">delete</mat-icon>
+			    </button>
+			</div>
+        </div>
+
+        <mat-list style="margin-top:3%" *ngIf="allFuelEvents.length>0">
+		  <mat-divider></mat-divider>
+		  <h3 mat-subheader>Mileage History</h3>
+		  <mat-divider></mat-divider>
+          
+		  <mat-list-item >
+		    <h4 mat-line>Date</h4>
+		    <p style="right: 20px;position: relative;"> Mil</p>
+		    <p style="right: 0px;position: relative;"> Fuel</p>
+		  </mat-list-item>
+		  <mat-divider></mat-divider>
+		  <mat-list-item *ngFor="let fuelEvent of allFuelEvents" (click)="openMileageView(fuelEvent)">
+		    <h4 mat-line>{{fuelEvent.id | date:'MMM d '}}</h4>
+		    <p style="right: 20px;position: relative;"> {{fuelEvent.mileage}}</p>
+		    <p style="right: 0px;position: relative;"> {{fuelEvent.fuelValue}}</p>
+		    <mat-icon *ngIf="isCurrentFESelected(fuelEvent)">check_circle</mat-icon>
+		  </mat-list-item>
+		  <mat-divider></mat-divider>
+		  <mat-divider></mat-divider>
+		</mat-list>		
+	</div>
+	
+</div>

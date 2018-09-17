@@ -1,0 +1,50 @@
+
+<div style="margin:2%;">
+	
+	<div style="width:90%;display: flex;flex-direction: column;">
+
+		
+		<label style="margin:8% 0">Manage Months</label>
+		
+		<mat-radio-group style="margin:8% 0" [(ngModel)]="selectedMonthAction" (change)="refreshMonths()" style="display: flex;flex-direction: column;">
+		  <mat-radio-button value="createMon">Create</mat-radio-button>
+		  <mat-radio-button value="deleteMon" style="margin-top:3%">Delete</mat-radio-button>
+		</mat-radio-group>
+
+		<div style="margin:8% 0" *ngIf="selectedMonthAction == 'createMon'">
+	         <mat-form-field class="example-full-width">
+		        <input matInput placeholder="Enter Name for New Month" [(ngModel)]="newMonthName">
+		     </mat-form-field>
+		     <button style="margin:5% 0" mat-raised-button color="primary" [disabled]="newMonthName==''" 
+				(click)="createNewMonth()">Save Month</button>
+		</div>
+
+
+		<div  *ngIf="selectedMonthAction == 'deleteMon'" style="margin:3% 0;display: flex;flex-direction: column;">
+			<mat-form-field >
+			  <mat-select placeholder="Select A Month" [(value)]="selectedMonth">
+			    <mat-option *ngFor="let month of expenseMonthsData" [value]="month">
+			      {{month.name}}
+			    </mat-option>
+			  </mat-select>
+			</mat-form-field> 
+			 <button style="margin:5% 0" mat-raised-button color="primary" [disabled]="!selectedMonth" (click)="deleteMonth()"
+				>Delete Month</button>
+		</div>
+
+
+		
+        <label style="margin:8% 0">Available Months - Click to set as Current</label>
+        
+		<mat-list style="margin-top:0" #selectionList>
+		  <mat-divider></mat-divider>
+          <mat-list-item *ngFor="let month of expenseMonthsData" (click)="setAsCurrentMonth(month)">
+		    <h4 mat-line>{{month.name}}</h4>
+		    <p mat-line> Created : {{month.id | date}} </p>
+		    <mat-icon style="right: 10px;position: absolute;" *ngIf="checkIfCurMonthIsSelected(month)">check_circle</mat-icon>
+		  </mat-list-item>
+		  <mat-divider></mat-divider>
+		</mat-list>		
+	</div>
+	
+</div>

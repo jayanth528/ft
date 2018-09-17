@@ -1,0 +1,68 @@
+
+<div style="margin:2%;">
+	
+	<div *ngIf="dataService.currentExpenseMonth==null">
+           <div> Current Month is not present.</div> 
+           <div> Please Navigate to Manage Page and set a current month.</div>
+	</div> 
+
+
+	<div style="width:90%;display: flex;flex-direction: column;" *ngIf="dataService.currentExpenseMonth!=null">
+		<mat-form-field>
+		  <mat-select placeholder="Select An Event" [(value)]="selectedEvent" (selectionChange)="inputChanged()">
+		    <mat-option *ngFor="let event of allEventDefs" [value]="event">
+		      {{event.name}}
+		    </mat-option>
+		  </mat-select>
+		</mat-form-field> 
+
+		<div *ngIf="selectedEvent && selectedEvent.id=='101'">
+		     <mat-form-field class="example-full-width">
+		        <input matInput placeholder="Enter Name for New Event" [(ngModel)]="newEventName">
+		     </mat-form-field>
+		     <button style="margin-top:1%;margin-left:10%" [disabled]="newEventName==''"  mat-raised-button (click)="saveNewEvent()">Save this Item</button>
+		</div>
+
+		<mat-radio-group style="margin-top:15%" [(ngModel)]="selectedPeriod"
+						 *ngIf="selectedEvent!=null" style="display: flex;flex-direction: column;">
+		  <mat-radio-button value="today">Today</mat-radio-button>
+		  <mat-radio-button value="notToday" style="margin-top:3%">Not Today</mat-radio-button>
+		</mat-radio-group>
+
+		<div *ngIf="selectedPeriod!='today' && selectedEvent!=null">
+			<button mat-raised-button (click)="picker.open()" style="margin-top:16%">Click to Select a Date</button>
+
+			<mat-form-field style="margin-top:4%" >
+			  <input matInput [matDatepicker]="picker" placeholder="Selected Date is " (dateChange)="selectedDate = $event.value">
+			  <mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+		</div> 
+
+		<mat-form-field style="margin:15% 0;" class="example-full-width" *ngIf="selectedEvent">
+		    <input matInput placeholder="Enter Value" type="number" min="0" [(ngModel)]="eventValue">
+		</mat-form-field>
+
+
+		<button style="margin-top:15%" mat-raised-button color="primary" [disabled]="selectedEvent==null || newEventSavingInProgress==true" 
+				(click)="markExpenseEvent()">Add Item</button>
+
+        
+		<mat-list style="margin-top:3%" *ngIf="currentMonthExpenses.length>0">
+          <mat-divider></mat-divider>
+		  <h3 mat-subheader>Current Month - {{dataService.currentExpenseMonth.name}} Expenses</h3>
+		  <mat-divider></mat-divider>
+		  <mat-list-item *ngFor="let expense of currentMonthExpenses" (click)="deleteExpenseEvent(expense)">
+		    <h4 mat-line>{{expense.timeStamp | date:'MMM d '}} - {{expense.name}} </h4>
+		    <p> {{expense.eventValue}}</p>
+		  </mat-list-item>
+		  <mat-divider></mat-divider>
+		  <!-- <h3 mat-subheader>Total {{getTotalOfCurrentMonthExpenses()}}</h3> -->
+		  <mat-list-item >
+		    <h4 mat-line>Total for Current Month</h4>
+		    <p> {{getTotalOfCurrentMonthExpenses()}}</p>
+		  </mat-list-item>
+		  <mat-divider></mat-divider>
+		</mat-list>		
+	</div>
+	
+</div>

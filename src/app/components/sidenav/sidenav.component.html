@@ -1,0 +1,29 @@
+<mat-list>
+	<mat-list-item routerLink="//">
+		<mat-icon mat-list-icon>home</mat-icon>
+		<h4 mat-line>Home</h4>
+	</mat-list-item >
+
+	<mat-list-item routerLink="{{'//'+page.link}}" *ngFor="let page of getPages()">
+		<mat-icon mat-list-icon>{{''+page.icon}}</mat-icon>
+		<h4 mat-line>{{page.label}}</h4>
+	</mat-list-item>
+
+
+	<!-- <mat-list-item routerLink="//addEvents">
+		<mat-icon mat-list-icon>add_to_photos</mat-icon>
+		<h4 mat-line>Mark Event</h4>
+	</mat-list-item>
+	<mat-list-item routerLink="//defineEvents">
+		<mat-icon mat-list-icon>add_to_photos</mat-icon>
+		<h4 mat-line>Manage Events</h4>
+	</mat-list-item>
+	<mat-list-item routerLink="//reports">
+		<mat-icon mat-list-icon>date_range</mat-icon>
+		<h4 mat-line>Reports</h4>
+	</mat-list-item> -->
+	<!-- <mat-list-item routerLink="//expenses">
+		<mat-icon mat-list-icon>attach_money</mat-icon>
+		<h4 mat-line>Expenses</h4>
+	</mat-list-item> -->
+</mat-list>

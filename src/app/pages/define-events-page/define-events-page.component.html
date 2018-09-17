@@ -1,0 +1,43 @@
+
+
+
+
+<mat-tab-group>
+  <mat-tab label="Create Event"> 
+  	   <form class="example-container">
+			<mat-form-field>
+				<mat-select placeholder="Select an Event type" [value]="'Daily'" [disabled]="true">
+					<mat-option *ngFor="let event of eventTypes" [value]="event.value">
+						{{event.name}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+
+			<mat-form-field>
+				<input matInput placeholder="Enter name of Event " 
+				      [(ngModel)]="eventName" name="event-name">
+				
+			</mat-form-field>
+ 	   </form>
+
+		<button mat-raised-button color="primary" [disabled]="eventName==''" class="create-event-btn" (click)="onCreateEventBtnClick()">Create Event</button>
+  </mat-tab>
+  
+  <mat-tab label="Delete Event">
+  		
+
+		 <form class="example-container">
+			<mat-form-field>
+			  <mat-select placeholder="Select An Event" [(value)]="selectedEvent" >
+			    <mat-option *ngFor="let event of allEventDefs" [value]="event">
+			      {{event.name}}
+			    </mat-option>
+			  </mat-select>
+			</mat-form-field> 
+
+		</form>
+		<button mat-raised-button color="primary" 
+		        class="create-event-btn" [disabled]="selectedEvent==null" (click)="deleteEvent(selectedEvent);">Delete Event</button>
+  </mat-tab>
+  
+</mat-tab-group>

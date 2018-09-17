@@ -1,0 +1,19 @@
+<app-toolbar [toolbarLabel]="toolbarLabel"></app-toolbar>
+
+
+<mat-sidenav-container class="example-container">
+	<mat-sidenav #sidenav mode="side" [(opened)]="dataService.isSidenavOpen">
+		<app-sidenav></app-sidenav>
+	</mat-sidenav>
+
+	<mat-sidenav-content>
+		<main role="main" class="container-fluid">
+		    <router-outlet></router-outlet>
+		</main>
+	</mat-sidenav-content>
+    
+</mat-sidenav-container>
+
+
+
+<app-spinner></app-spinner>

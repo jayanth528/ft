@@ -1,0 +1,8 @@
+.normal-month-type {
+  background: lightblue;
+}
+
+.marked-month-type{
+  background: blue;	
+  color:white;
+}

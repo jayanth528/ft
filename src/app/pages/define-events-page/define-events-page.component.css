@@ -1,0 +1,20 @@
+.create-event-btn {
+	margin-left:20%;
+	margin-top:5%;
+}
+
+.example-container {
+	padding:10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.example-container > * {
+	padding-top: 25px;
+	width: 50%;
+}
+
+.def-events-container {
+	display: flex;
+	flex-direction: column;	
+}

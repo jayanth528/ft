@@ -1,0 +1,12 @@
+.button-row button,
+.button-row a {
+  margin-right: 3%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.mat-list-text{
+	padding:0;
+}

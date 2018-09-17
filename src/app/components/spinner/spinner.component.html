@@ -1,0 +1,8 @@
+<div class="spinner-container" *ngIf="dataService.isSpinnerVisible" >
+	<div class="spinner-inner-container">
+		<mat-progress-spinner
+			[color]="'primary'"
+			[mode]="'indeterminate'">
+		</mat-progress-spinner>
+	</div>
+</div>

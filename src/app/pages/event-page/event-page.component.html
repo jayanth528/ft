@@ -1,0 +1,44 @@
+
+<div style="margin:2%;">
+	
+	<div style="width:50%;display: flex;flex-direction: column;">
+		<mat-form-field>
+		  <mat-select placeholder="Select An Event" [(value)]="selectedEvent">
+		    <mat-option *ngFor="let event of allEventDefs" [value]="event">
+		      {{event.name}} - {{event.id}}
+		    </mat-option>
+		  </mat-select>
+		</mat-form-field> 
+
+		<mat-radio-group style="margin-top:8%" [(ngModel)]="selectedPeriod" *ngIf="selectedEvent!=null" >
+		  <mat-radio-button value="today">Today</mat-radio-button>
+		  <mat-radio-button value="notToday" style="margin-left: 18%;">Not Today</mat-radio-button>
+		</mat-radio-group>
+		
+
+		<div *ngIf="selectedPeriod!='today' && selectedEvent!=null">
+			<button mat-raised-button (click)="picker.open()" style="margin-top:16%">Click to Select a Date</button>
+
+			<mat-form-field style="margin-top:4%" >
+			  <input matInput [matDatepicker]="picker" placeholder="Selected Date is " (dateChange)="selectedDate = $event.value">
+			  <mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+		</div>
+
+		<button style="margin-top:15%" mat-raised-button color="primary" [disabled]="selectedEvent==null" 
+				(click)="addEvtBtnClicked()">Add Event</button>
+	</div>
+
+	<!-- <div style="margin-top:5%">
+		<label > Todays Events So Far : </label>
+	</div>
+
+	<mat-list>
+		<mat-list-item *ngFor="let event of todayEvents">
+
+			<h4 mat-line>Home</h4>
+		</mat-list-item >
+		
+	</mat-list> -->
+	
+</div>
